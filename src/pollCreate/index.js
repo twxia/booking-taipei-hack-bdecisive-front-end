@@ -92,6 +92,7 @@ class PollCreatePage extends React.Component {
       }
       return null;
     };
+    let { steps, startDate, endDate } = this.state;
 
     return (
       <Layout>
@@ -102,21 +103,26 @@ class PollCreatePage extends React.Component {
           <span className={stepClass(3)}>3. Invite </span>
         </section>
         <form onSubmit={this.handleSubmit}>
-          <section id="step-1" ref="step1" style={{ display: this.state.steps === 1 ? 'block' : 'none' }}>
+          <section id="step-1" ref="step1" style={{ display: steps === 1 ? 'block' : 'none' }}>
             <Step1 handleDate={this.handleDate} />
           </section>
-          <section id="step-2" style={{ display: this.state.steps === 2 ? 'block' : 'none' }}>
-            <Step2 startDate={moment(this.state.startDate)} endDate={moment(this.state.endDate)} />
+          <section id="step-2" style={{ display: steps === 2 ? 'block' : 'none' }}>
+            {
+              steps === 2 ? (
+                  <Step2 startDate={ startDate ? moment(startDate) : moment() }
+                         endDate={ endDate ? moment(endDate) : moment() } />
+              ) : false
+            }
           </section>
-          <section id="step-3" style={{ display: this.state.steps === 3 ? 'block' : 'none' }}>
+          <section id="step-3" style={{ display: steps === 3 ? 'block' : 'none' }}>
           </section>
           <Grid>
             <Cell col={3}>
               <Button primary onClick={this.handlePrev}>Prev</Button>
             </Cell>
             <Cell col={3}>
-              <Button primary onClick={this.handleNext} style={{ display: this.state.steps !== 2 ? 'block' : 'none' }}>Next</Button>
-              <Button type="submit" style={{ display: this.state.steps === 2 ? 'block' : 'none' }}>Next</Button>
+              <Button primary onClick={this.handleNext} style={{ display: steps !== 2 ? 'block' : 'none' }}>Next</Button>
+              <Button type="submit" style={{ display: steps === 2 ? 'block' : 'none' }}>Next</Button>
             </Cell>
             <Cell col={6}></Cell>
           </Grid>

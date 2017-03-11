@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 import UrlInput from './urlInput'
-import { Button } from 'react-mdl'
 
 class Step2 extends Component {
   constructor(props) {
