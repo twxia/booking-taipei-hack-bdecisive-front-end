@@ -1,0 +1,6 @@
+{
+  "name": "Step1",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./step1.js"
+}
