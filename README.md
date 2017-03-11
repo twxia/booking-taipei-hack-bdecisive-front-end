@@ -184,3 +184,4 @@ the [LICENSE.txt](https://github.com/kriasoft/react-static-boilerplate/blob/mast
 
 ---
 Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/react-static-boilerplate/graphs/contributors)
+# booking-hack-front-end
