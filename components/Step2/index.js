@@ -40,9 +40,6 @@ class Step2 extends Component {
             )
           })
         }
-        <h3 className="mdl-typography--text-center">
-          <Button raised colored>Submit</Button>
-        </h3>
       </div>
     )
   }
