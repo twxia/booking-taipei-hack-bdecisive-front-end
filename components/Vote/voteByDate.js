@@ -12,22 +12,25 @@ class VoteByDate extends Component {
         .map((hotel, i) => hotel.hotelData);
 
     return list.length ? (
-      <DataTable
-        selectable
-        shadow={0}
-        rowKeyColumn="id"
-        rows={list}>
-        {
-          tableHeaders.map((col) => (
-              <TableHeader key={`${col}`}
-                name={col}
-                tooltip={col}>
-                {col}
-              </TableHeader>
+      <div>
+        <h4>{date}</h4>
+        <DataTable
+          selectable
+          shadow={0}
+          rowKeyColumn="id"
+          rows={list}>
+          {
+            tableHeaders.map((col) => (
+                <TableHeader key={`${col}`}
+                  name={col}
+                  tooltip={col}>
+                  {col}
+                </TableHeader>
+              )
             )
-          )
-        }
-      </DataTable>
+          }
+        </DataTable>
+      </div>
     ) : false
   }
 }

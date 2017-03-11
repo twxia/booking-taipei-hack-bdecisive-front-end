@@ -20,12 +20,13 @@ class Vote extends Component {
         date: startDateObject.add(i, 'day').format('YYYY-MM-DD')
       })
     }
+    console.log(voteGroup)
 
     return (
       <div>
         <h3>{ title }</h3>
-        <h4>poll start date: { startDate }</h4>
-        <h4>poll end date: { endDate }</h4>
+        <h4>travel start date: { startDate }</h4>
+        <h4>travel end date: { endDate }</h4>
         {
           voteGroup.map((dateGroup, i) => (
               <VoteByDate key={`group-${dateGroup.date}`}
@@ -49,68 +50,7 @@ Vote.defaultProps = {
     data: [
       {
         hotelData: {
-          'id': 327938,
-          'name': 'Dolamanco Hotel',
-          'city': 'Taipei',
-          'minrate': 2700,
-          'review_score': 7.8
-        },
-        checkIn: '2017-03-11',
-        checkOut: '2017-03-12',
-        note: 'note',
-        location: 'hotel location',
-        vote: [
-          {
-            name: 'Anne Chen',
-            reaction: 0
-          },
-          {
-            name: 'Peter Lee',
-            reaction: -1
-          },
-          {
-            name: 'Lucy Chou',
-            reaction: 1
-          },
-          {
-            name: 'Chester Li',
-            reaction: 0
-          }
-        ]
-      },
-      {
-        hotelData: {
-          'id': 311840,
-          'name': 'Royal Palace Hotel',
-          'city': 'Taipei',
-          'minrate': 2880,
-          'review_score': 8.2
-        },
-        checkIn: '2017-03-11',
-        checkOut: '2017-03-12',
-        note: 'note',
-        location: 'hotel location',
-        vote: [
-          {
-            name: 'Anne Chen',
-            reaction: 1
-          },
-          {
-            name: 'Peter Lee',
-            reaction: 1
-          },
-          {
-            name: 'Lucy Chou',
-            reaction: 1
-          },
-          {
-            name: 'Chester Li',
-            reaction: 0
-          }
-        ]
-      },
-      {
-        hotelData: {
+          'image': 'http://placehold.it/120x100',
           'id': 419820,
           'name': 'ezBookers - Fuxing A',
           'city': 'Taipei',
@@ -142,6 +82,7 @@ Vote.defaultProps = {
       },
       {
         hotelData: {
+          'image': 'http://placehold.it/120x100',
           'id': 382029,
           'name': 'Shangri-la\'s Far Eastern Plaza Hotel, Taipei',
           'city': 'Taipei',
@@ -150,6 +91,70 @@ Vote.defaultProps = {
         },
         checkIn: '2017-03-12',
         checkOut: '2017-03-13',
+        note: 'note',
+        location: 'hotel location',
+        vote: [
+          {
+            name: 'Anne Chen',
+            reaction: 1
+          },
+          {
+            name: 'Peter Lee',
+            reaction: 1
+          },
+          {
+            name: 'Lucy Chou',
+            reaction: 1
+          },
+          {
+            name: 'Chester Li',
+            reaction: 0
+          }
+        ]
+      },
+      {
+        hotelData: {
+          'image': 'http://placehold.it/120x100',
+          'id': 327938,
+          'name': 'Dolamanco Hotel',
+          'city': 'Taipei',
+          'minrate': 2700,
+          'review_score': 7.8
+        },
+        checkIn: '2017-03-13',
+        checkOut: '2017-03-14',
+        note: 'note',
+        location: 'hotel location',
+        vote: [
+          {
+            name: 'Anne Chen',
+            reaction: 0
+          },
+          {
+            name: 'Peter Lee',
+            reaction: -1
+          },
+          {
+            name: 'Lucy Chou',
+            reaction: 1
+          },
+          {
+            name: 'Chester Li',
+            reaction: 0
+          }
+        ]
+      },
+      {
+        hotelData: {
+          'image': 'http://placehold.it/120x100',
+          'id': 311840,
+          'name': 'Royal Palace Hotel',
+          'city': 'Taipei',
+          'minrate': 2880,
+          'review_score': 8.2
+        },
+        checkIn: '2017-03-13',
+        checkOut: '2017-03-14',
         note: 'note',
         location: 'hotel location',
         vote: [
