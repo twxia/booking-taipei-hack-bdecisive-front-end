@@ -20,7 +20,6 @@ class Vote extends Component {
         date: startDateObject.add(i, 'day').format('YYYY-MM-DD')
       })
     }
-    console.log(voteGroup)
 
     return (
       <div>
