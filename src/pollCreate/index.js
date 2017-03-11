@@ -11,9 +11,11 @@
 import React from 'react';
 import { request } from 'superagent';
 import classNames from 'classnames';
+import * as moment from 'moment';
 import { Grid, Cell, Button } from 'react-mdl';
 import Layout from '../../components/Layout';
 import Step1 from '../../components/Step1';
+import Step2 from '../../components/Step2';
 import s from './styles.css';
 
 
@@ -28,11 +30,23 @@ class PollCreatePage extends React.Component {
     this.state = {
       steps: 1,
       stepDetail: [],
-      resultUrl: ''
+      resultUrl: '',
+      startDate: '',
+      endDate: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
+    this.handleDate = this.handleDate.bind(this);
+  }
+
+  handleDate(event) {
+    const { name, value } = event.target;
+    if (name === 'start_date') {
+      this.setState({ startDate: value });
+    } else {
+      this.setState({ endDate: value });
+    }
   }
 
   handleSubmit(event) {
@@ -89,10 +103,10 @@ class PollCreatePage extends React.Component {
         </section>
         <form onSubmit={this.handleSubmit}>
           <section id="step-1" ref="step1" style={{ display: this.state.steps === 1 ? 'block' : 'none' }}>
-            <Step1 />
+            <Step1 handleDate={this.handleDate} />
           </section>
           <section id="step-2" style={{ display: this.state.steps === 2 ? 'block' : 'none' }}>
-            {/* <Step2 startDate={this.refs.step1.refs.startDate} endDate={this.refs.step1.refs.endDate} /> */}
+            <Step2 startDate={moment(this.state.startDate)} endDate={moment(this.state.endDate)} />
           </section>
           <section id="step-3" style={{ display: this.state.steps === 3 ? 'block' : 'none' }}>
           </section>

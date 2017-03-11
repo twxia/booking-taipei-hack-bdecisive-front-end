@@ -4,6 +4,10 @@ import { Grid, Cell, Textfield, Button } from 'react-mdl';
 class Step1 extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      startDate: this.props.startDate,
+      endDate: this.props.endDate,
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -45,7 +49,7 @@ class Step1 extends Component {
           </Cell>
           <Cell col={6}>
             <Textfield
-              onChange={this.handleChange}
+              onChange={this.props.handleDate}
               label="Start Date (2055-12-1)"
               name="start_date"
               ref="startDate"
@@ -54,7 +58,7 @@ class Step1 extends Component {
           </Cell>
           <Cell col={6}>
             <Textfield
-              onChange={this.handleChange}
+              onChange={this.props.handleDate}
               label="End Date (2055-12-10)"
               name="end_date"
               ref="endDate"
@@ -68,8 +72,7 @@ class Step1 extends Component {
 }
 
 Step1.propTypes = {
-  startDate: React.PropTypes.string,
-  endDate: React.PropTypes.string,
+  handleDate: React.PropTypes.func,
 };
 
 export default Step1;
