@@ -6,15 +6,17 @@ import { Button } from 'react-mdl'
 class Step2 extends Component {
   constructor(props) {
     super(props)
-    let { startDate, days } = props,
+    let { startDate, endDate } = props,
+      days = endDate.diff(startDate, 'day', true) + 1,
       defaultUrlPerDayByDefault = 1,
       daysWithUrl = []
 
-    for (let i=0; i< days ;i++)
+    for (let i=0; i< days ;i++) {
       daysWithUrl.push({
         date: moment(startDate).add(i, 'day'),
         urlNum: defaultUrlPerDayByDefault
       })
+    }
 
     this.state = {
       daysWithUrl: daysWithUrl || []
@@ -48,14 +50,12 @@ class Step2 extends Component {
 
 Step2.defaultProps = {
   startDate: moment(),
-  endDate: moment().add(2, 'day'),
-  days: 3
+  endDate: moment().add(2, 'day')
 }
 
 Step2.propTypes = {
   startDate: PropTypes.object,
-  endDate: PropTypes.object,
-  days: PropTypes.number
+  endDate: PropTypes.object
 }
 
 export default Step2
