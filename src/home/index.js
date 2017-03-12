@@ -12,7 +12,7 @@ import React, { PropTypes } from 'react';
 import Layout from '../../components/Layout';
 import s from './styles.css';
 import { title, html } from './index.md';
-
+import Vote from '../../components/Vote';
 class HomePage extends React.Component {
 
   static propTypes = {
@@ -35,6 +35,7 @@ class HomePage extends React.Component {
           dangerouslySetInnerHTML={{ __html: html }}
         />
         <h4>Articles</h4>
+        <Vote />
         <ul>
           {this.props.articles.map(article =>
             <li key={article.url}>
