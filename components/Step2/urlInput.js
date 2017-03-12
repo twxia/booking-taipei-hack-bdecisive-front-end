@@ -58,10 +58,6 @@ class UrlInput extends Component {
       request
         .get('https://taipeihacks.azurewebsites.net/getHotelByUrl')
         .query({ url: value })
-        .set({
-          'Accept': 'application/json'
-        })
-
         .end((err, res) => {
           if (err) {
             console.log(err);
