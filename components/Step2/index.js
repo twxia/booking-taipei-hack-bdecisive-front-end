@@ -10,7 +10,7 @@ class Step2 extends Component {
       defaultUrlPerDayByDefault = 1,
       daysWithUrl = []
 
-    for (let i=0; i< days ;i++) {
+    for (let i = 0; i < days; i++) {
       daysWithUrl.push({
         date: moment(startDate).add(i, 'day'),
         urlNum: defaultUrlPerDayByDefault
