@@ -15,7 +15,7 @@ class PreviewCard extends Component {
   }
 
   componentDidMount() {
-    const intervalId = setInterval(this.changeImageUrl, 2500);
+    const intervalId = setInterval(this.changeImageUrl, 3500);
 
     this.intervalId = intervalId;
   }
@@ -51,7 +51,7 @@ class PreviewCard extends Component {
     const { name, address } = this.props.info;
 
     return (
-      <div>
+      <div style={this.props.style}>
         <Card shadow={0} style={{ width: '512px', margin: 'auto' }}>
           <CardTitle style={styles}>{name}</CardTitle>
           <CardText>
@@ -69,6 +69,7 @@ class PreviewCard extends Component {
 PreviewCard.propTypes = {
   imageUrls: React.PropTypes.array,
   info: React.PropTypes.object,
+  style: React.PropTypes.object
 };
 
 export default PreviewCard;

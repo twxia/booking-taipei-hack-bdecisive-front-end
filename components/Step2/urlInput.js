@@ -12,15 +12,8 @@ class UrlInput extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       urlNum: 1,
-      previewImageUrls: [],
-      previewInfo: {
-        name: '',
-        address: '',
-        url: '',
-      },
+      urlsPreviewDetail: {},
     };
-
-    this.getHotelImages = this.getHotelImages.bind(this);
   }
 
   _onAddBtnClickd(e) {
@@ -40,21 +33,26 @@ class UrlInput extends Component {
   }
 
   getHotelImages(hotelId) {
-    request
-      .get(`https://distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids=${hotelId}`)
-      .auth('hacker234', '8hqNW6HtfU')
-      .end((err, res) => {
-        const body = res.body;
-        const urls = body.map(d => d.url_max300);
+    return new Promise((resolve, reject) => {
+      request
+        .get(`https://distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids=${hotelId}`)
+        .auth('hacker234', '8hqNW6HtfU')
+        .end((err, res) => {
+          const body = res.body;
+          const urls = body.map(d => d.url_max300);
 
-        this.setState({ previewImageUrls: urls });
-      });
+          if (err) reject(err);
+          resolve(urls);
+        });
+    });
   }
 
   handleChange(event) {
-    const value = event.target.value;
+    const { id, value } = event.target;
     console.log(`request: ${value}`);
+
     if (this.validUrl(value)) {
+      event.target.disabled = true;
       request
         .get('https://taipeihacks.azurewebsites.net/getHotelByUrl')
         .query({ url: value })
@@ -69,11 +67,24 @@ class UrlInput extends Component {
               name: name,
               url: url,
             };
-            this.setState({ previewInfo: info });
-            this.getHotelImages(hotel_id);
+            let urlsPreviewDetail = this.state.urlsPreviewDetail;
+            
+            this.getHotelImages(hotel_id).then((urls) => {
+              event.target.remove();
+              urlsPreviewDetail[id] = {
+                info: info,
+                imageUrls: urls,
+              };
+              this.setState({ urlsPreviewDetail: urlsPreviewDetail });
+              event.target.disabled = false;
+            }).catch((err) => {
+              console.log(err);
+              event.target.disabled = false;
+            });
           }
         });
     }
+    event.persist();
     event.preventDefault();
   }
 
@@ -83,16 +94,20 @@ class UrlInput extends Component {
       textFields = []
 
     for (let i = 1; i <= urlNum; i++) {
+      const key = `url-${date}-${i}`;
+      const previews = this.state.urlsPreviewDetail[key];
+      const imageUrls = (previews) ? previews.imageUrls : [];
+      const info = (previews) ? previews.info : { name: '', address: '', url: '' };
       textFields.push(
-        <div key={`url-${date}-${i}`}>
+        <div key={key}>
           <Textfield data-date={date}
+            id={key}
             onChange={this.handleChange}
             label="URL@Booking.com"
             style={{ width: '200px' }}
             name="url"
           />
-          <PreviewCard imageUrls={this.state.previewImageUrls} info={this.state.previewInfo} />
-
+          <PreviewCard style={{ display: (previews) ? 'block' : 'none', marginBottom: '24px' }} imageUrls={imageUrls} info={info} />
         </div>
       )
     }
