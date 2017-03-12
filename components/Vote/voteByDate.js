@@ -5,7 +5,6 @@ import React, { Component, PropTypes } from 'react'
 import { DataTable, TableHeader } from 'react-mdl'
 import { merge as _merge, clone as _clone } from 'lodash'
 import VoteResult from './voteResult'
-import { Badge } from 'react-mdl'
 
 class VoteByDate extends Component {
   render() {
