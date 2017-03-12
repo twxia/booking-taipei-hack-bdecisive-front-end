@@ -3,13 +3,15 @@
  */
 import React, { Component, PropTypes } from 'react'
 import { DataTable, TableHeader } from 'react-mdl'
+import { merge as _merge, clone as _clone } from 'lodash'
+import VoteResult from './voteResult'
 
 class VoteByDate extends Component {
   render() {
-    const tableHeaders = ['id', 'image', 'name', 'city', 'minrate'];
     let { data, date } = this.props,
-      list = data.filter((hotel, i) => hotel.checkIn === date)
-        .map((hotel, i) => hotel.hotelData);
+      currentDateData = data.filter((hotel, i) => hotel.checkIn === date),
+      list = _clone(currentDateData).map((hotel, i) => hotel.hotelData),
+      voteList = _clone(currentDateData).map((hotel, i) => ({vote: hotel.vote}))
 
     return list.length ? (
       <div>
@@ -18,17 +20,19 @@ class VoteByDate extends Component {
           selectable
           shadow={0}
           rowKeyColumn="id"
-          rows={list}>
-          {
-            tableHeaders.map((col) => (
-                <TableHeader key={`${col}`}
-                  name={col}
-                  tooltip={col}>
-                  {col}
-                </TableHeader>
-              )
-            )
-          }
+          rows={_merge(list, voteList)}>
+          <TableHeader name="id">ID</TableHeader>
+          <TableHeader name="image" cellFormatter={(imageUrl) => <img src={imageUrl} width={120} height={100}/>}>
+          </TableHeader>
+          <TableHeader name="name">name</TableHeader>
+          <TableHeader name="city">city</TableHeader>
+          <TableHeader numeric name="minrate"
+            cellFormatter={(minrate) => `\NT$${minrate}`}
+            tooltip="Price for 2 Adults pet night">Price</TableHeader>
+          <TableHeader name="vote"
+            cellFormatter={(vote) => (<VoteResult vote={vote} />)}
+            tooltip="Who vote for this hotel?">who vote for this Hotel</TableHeader>
+
         </DataTable>
       </div>
     ) : false
