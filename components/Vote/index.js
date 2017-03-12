@@ -49,7 +49,7 @@ Vote.defaultProps = {
     data: [
       {
         hotelData: {
-          'image': 'http://placehold.it/120x100',
+          'image': 'http://t-ec.bstatic.com/images/hotel/square200/485/4852587.jpg',
           'id': 419820,
           'name': 'ezBookers - Fuxing A',
           'city': 'Taipei',
@@ -67,7 +67,7 @@ Vote.defaultProps = {
           },
           {
             name: 'Peter Lee',
-            reaction: 1
+            reaction: -1
           },
           {
             name: 'Lucy Chou',
@@ -81,7 +81,7 @@ Vote.defaultProps = {
       },
       {
         hotelData: {
-          'image': 'http://placehold.it/120x100',
+          'image': 'http://s-ec.bstatic.com/images/hotel/square200/738/7387579.jpg',
           'id': 382029,
           'name': 'Shangri-la\'s Far Eastern Plaza Hotel, Taipei',
           'city': 'Taipei',
@@ -113,7 +113,7 @@ Vote.defaultProps = {
       },
       {
         hotelData: {
-          'image': 'http://placehold.it/120x100',
+          'image': 'http://s-ec.bstatic.com/images/hotel/square200/535/53536605.jpg',
           'id': 327938,
           'name': 'Dolamanco Hotel',
           'city': 'Taipei',
@@ -145,7 +145,7 @@ Vote.defaultProps = {
       },
       {
         hotelData: {
-          'image': 'http://placehold.it/120x100',
+          'image': 'http://t-ec.bstatic.com/images/hotel/square200/447/44796857.jpg',
           'id': 311840,
           'name': 'Royal Palace Hotel',
           'city': 'Taipei',
