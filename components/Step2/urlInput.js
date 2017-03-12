@@ -28,10 +28,6 @@ class UrlInput extends Component {
     return url.indexOf('www.booking.com') !== -1;
   }
 
-  displayCard() {
-
-  }
-
   getHotelImages(hotelId) {
     return new Promise((resolve, reject) => {
       request
@@ -54,7 +50,7 @@ class UrlInput extends Component {
     if (this.validUrl(value)) {
       event.target.disabled = true;
       request
-        .get('https://taipeihacks.azurewebsites.net/getHotelByUrl')
+        .get('http://taipeihack.patricks.tw/getHotelByUrl')
         .query({ url: value })
         .end((err, res) => {
           if (err) {
@@ -63,6 +59,7 @@ class UrlInput extends Component {
             const body = res.body;
             const { address, hotel_id, name, url } = body.data[0];
             const info = {
+              id: hotel_id,
               address: address,
               name: name,
               url: url,
@@ -76,6 +73,7 @@ class UrlInput extends Component {
                 imageUrls: urls,
               };
               this.setState({ urlsPreviewDetail: urlsPreviewDetail });
+              this.props.handleDetail(this.props.date, this.state.urlsPreviewDetail);
               event.target.disabled = false;
             }).catch((err) => {
               console.log(err);
@@ -130,7 +128,8 @@ UrlInput.defaultProps = {
 }
 
 UrlInput.propTypes = {
-  date: PropTypes.object
+  date: PropTypes.object,
+  handleDetail: React.PropTypes.func,
 }
 
 export default UrlInput

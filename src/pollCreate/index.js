@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import { request } from 'superagent';
+import * as request from 'superagent';
 import classNames from 'classnames';
 import * as moment from 'moment';
 import { Grid, Cell, Button } from 'react-mdl';
@@ -33,11 +33,13 @@ class PollCreatePage extends React.Component {
       resultUrl: '',
       startDate: '',
       endDate: '',
+      hotelProposalData: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
     this.handleDate = this.handleDate.bind(this);
+    this.handleProposal = this.handleProposal.bind(this);
   }
 
   handleDate(event) {
@@ -49,20 +51,53 @@ class PollCreatePage extends React.Component {
     }
   }
 
+  handleProposal(data) {
+    this.setState({ hotelProposalData: data });
+  }
+
+  processHotelsData(data) {
+    let result = [];
+
+    for (let date in result) {
+      for (let hotel in result[date]) {
+        result.push({
+          checkIn: date,
+          checkOut: moment(date).add(1, 'day').format('YYYY-MM-DD'),
+          location: result[data][hotel].info.address,
+          note: '',
+          booking_id: result[data][hotel].info.id
+        });
+      }
+    }
+
+    return result;
+  }
+
   handleSubmit(event) {
-    //const { title, name, email, startDate, endDate } = this.refs.step1.refs;
+    const { title, name, email, start_date, end_date } = event.target;
     console.log('fire', event.target);
-    /*
+/*
     request
-      .post('/poll')
-      .send({
+      .post('http://taipeihack.patricks.tw/poll')
+      .send('json=' + JSON.stringify({
         title: title.value,
-        name: name.value,
-        email: email.value,
-        startDate: startDate.value,
-        endDate: endDate.value,
+        author: [
+          {
+            name: name.value,
+            email: email.value,
+          },
+        ],
+        startDate: start_date.value,
+        endDate: end_date.value,
+        personAmount: 5,
+        hotels: this.processHotelsData(this.state.hotelProposalData),
+      }))
+      .type('form')
+      .end((err, res) => {
+        if (err) console.log(err);
+        console.log(res);
       });
-    */
+*/
     this.handleNext();
     event.preventDefault();
   }
@@ -99,7 +134,7 @@ class PollCreatePage extends React.Component {
         <h2>Create A Poll</h2>
         <section id="state">
           <span className={stepClass(1)}>1. General > </span>
-          <span className={stepClass(2)}>2. Time Proposals > </span>
+          <span className={stepClass(2)}>2. Hotel Proposals > </span>
           <span className={stepClass(3)}>3. Invite </span>
         </section>
         <form onSubmit={this.handleSubmit}>
@@ -109,12 +144,14 @@ class PollCreatePage extends React.Component {
           <section id="step-2" style={{ display: steps === 2 ? 'block' : 'none' }}>
             {
               steps === 2 ? (
-                  <Step2 startDate={ startDate ? moment(startDate) : moment() }
-                         endDate={ endDate ? moment(endDate) : moment() } />
+                <Step2 handleProposal={this.handleProposal} startDate={startDate ? moment(startDate) : moment()}
+                  endDate={endDate ? moment(endDate) : moment()} />
               ) : false
             }
           </section>
           <section id="step-3" style={{ display: steps === 3 ? 'block' : 'none' }}>
+            <h3>Success! Form Created</h3>
+            <a href={'http://' + window.location.host + '/poll/94879487'}>{window.location.host}/poll/94879487</a>
           </section>
           <Grid>
             <Cell col={3}>

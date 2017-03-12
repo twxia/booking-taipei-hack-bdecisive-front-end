@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Card, CardText, CardActions, CardTitle, CardMenu, IconButton } from 'react-mdl';
+import { Textfield, Button, Card, CardText, CardActions, CardTitle, CardMenu, IconButton } from 'react-mdl';
 import { classNames } from 'classnames';
 
 class PreviewCard extends Component {
@@ -55,7 +55,12 @@ class PreviewCard extends Component {
         <Card shadow={0} style={{ width: '512px', margin: 'auto' }}>
           <CardTitle style={styles}>{name}</CardTitle>
           <CardText>
-            <p>address: {address}</p>
+            <small>address: {address}</small>
+            <Textfield
+              onChange={() => { }}
+              label="Make a note about the hotel..."
+              rows={2}
+            />
           </CardText>
           <CardMenu style={{ color: '#fff' }}>
             <IconButton type="button" name="share" onClick={this.goToUrl} />

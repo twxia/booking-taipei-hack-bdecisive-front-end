@@ -18,10 +18,20 @@ class Step2 extends Component {
     }
 
     this.state = {
-      daysWithUrl: daysWithUrl || []
-    }
+      daysWithUrl: daysWithUrl || [],
+      daysDetail: {},
+    };
+
+    this.handleDetail = this.handleDetail.bind(this);
   }
 
+  handleDetail(date, data) {
+    let daysDetail = this.state.daysDetail;
+    daysDetail[date.format('YYYY-MM-DD')] = data;
+    this.setState({ daysDetail: daysDetail });
+
+    this.props.handleProposal(this.state.daysDetail);
+  }
 
   render() {
     let { daysWithUrl } = this.state
@@ -33,7 +43,7 @@ class Step2 extends Component {
             return (
               <div key={`${d.date}-${i}`} className="mdl-typography--text-center">
                 {
-                  <UrlInput date={d.date} number={d.urlNum} />
+                  <UrlInput date={d.date} number={d.urlNum} handleDetail={this.handleDetail} />
                 }
               </div>
             )
@@ -51,7 +61,8 @@ Step2.defaultProps = {
 
 Step2.propTypes = {
   startDate: PropTypes.object,
-  endDate: PropTypes.object
+  endDate: PropTypes.object,
+  handleProposal: React.PropTypes.func
 }
 
 export default Step2
