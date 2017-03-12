@@ -97,6 +97,7 @@ Vote.defaultProps = {
       {
         hotelData: {
           'image': 'http://t-ec.bstatic.com/images/hotel/square200/485/4852587.jpg',
+          'url': 'http://www.booking.com/hotel/tw/ezbookers.html',
           'id': 419820,
           'name': 'ezBookers - Fuxing A',
           'city': 'Taipei',
@@ -129,6 +130,7 @@ Vote.defaultProps = {
       {
         hotelData: {
           'image': 'http://s-ec.bstatic.com/images/hotel/square200/738/7387579.jpg',
+          'url': 'http://www.booking.com/hotel/tw/shangri-la-s-far-eastern-plaza-taipei.html',
           'id': 382029,
           'name': 'Shangri-la\'s Far Eastern Plaza Hotel, Taipei',
           'city': 'Taipei',
@@ -162,6 +164,7 @@ Vote.defaultProps = {
         hotelData: {
           'image': 'http://s-ec.bstatic.com/images/hotel/square200/535/53536605.jpg',
           'id': 327938,
+          'url': 'http://www.booking.com/hotel/tw/dolamanco.html',
           'name': 'Dolamanco Hotel',
           'city': 'Taipei',
           'minrate': 2700,
@@ -193,6 +196,7 @@ Vote.defaultProps = {
       {
         hotelData: {
           'image': 'http://t-ec.bstatic.com/images/hotel/square200/447/44796857.jpg',
+          'url': 'http://www.booking.com/hotel/tw/royal-palace.html',
           'id': 311840,
           'name': 'Royal Palace Hotel',
           'city': 'Taipei',
