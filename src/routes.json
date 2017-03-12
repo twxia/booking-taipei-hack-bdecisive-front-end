@@ -23,5 +23,9 @@
   {
     "path": "/poll/create",
     "page": "./pollCreate"
+  },
+  {
+    "path": "/poll/:id",
+    "page": "./poll"
   }
 ]
