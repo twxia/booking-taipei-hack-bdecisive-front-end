@@ -11,8 +11,16 @@ class UrlInput extends Component {
     this._onAddBtnClickd = this._onAddBtnClickd.bind(this)
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      urlNum: 1
-    }
+      urlNum: 1,
+      previewImageUrls: [],
+      previewInfo: {
+        name: '',
+        address: '',
+        url: '',
+      },
+    };
+
+    this.getHotelImages = this.getHotelImages.bind(this);
   }
 
   _onAddBtnClickd(e) {
@@ -33,8 +41,13 @@ class UrlInput extends Component {
 
   getHotelImages(hotelId) {
     request
-      .get(`https://hacker234:8hqNW6HtfU@distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids=${hotelId}`)
+      .get(`https://distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids=${hotelId}`)
+      .auth('hacker234', '8hqNW6HtfU')
       .end((err, res) => {
+        const body = res.body;
+        const urls = body.map(d => d.url_max300);
+
+        this.setState({ previewImageUrls: urls });
       });
   }
 
@@ -48,11 +61,22 @@ class UrlInput extends Component {
         .set({
           'Accept': 'application/json'
         })
-        .end((err, res) => {
-          console.log(res);
-          if (err) console.log(err);
-        });
 
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          } else {
+            const body = res.body;
+            const { address, hotel_id, name, url } = body.data[0];
+            const info = {
+              address: address,
+              name: name,
+              url: url,
+            };
+            this.setState({ previewInfo: info });
+            this.getHotelImages(hotel_id);
+          }
+        });
     }
     event.preventDefault();
   }
@@ -71,7 +95,7 @@ class UrlInput extends Component {
             style={{ width: '200px' }}
             name="url"
           />
-          <PreviewCard imageUrls={['http://aff.bstatic.com/images/hotel/max300_watermarked_standard/513/51369f9e77e110b5ad05e1a4fc522f832e501fd3.jpg']} />
+          <PreviewCard imageUrls={this.state.previewImageUrls} info={this.state.previewInfo} />
 
         </div>
       )
